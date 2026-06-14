@@ -93,7 +93,7 @@
             text-align: center;
             padding: 2rem;
             position: relative;
-            background: radial-gradient(circle at center, #1f1b1b 0%, #0f0e0e 100%);
+            background: radial-gradient(circle at center, #1f1b1b 0%, #0f0e0e 100%), url('https://placehold.co/1920x1080/0f0e0e/c5a059?text=') center/cover no-repeat;
             overflow: hidden;
         }
 
@@ -112,6 +112,7 @@
             margin-bottom: 1rem;
             text-shadow: 0 4px 20px rgba(0,0,0,0.8);
             animation: fadeUp 1s ease-out;
+            z-index: 1;
         }
 
         .hero p {
@@ -120,6 +121,7 @@
             max-width: 600px;
             margin-bottom: 2rem;
             animation: fadeUp 1s ease-out 0.2s both;
+            z-index: 1;
         }
 
         .btn {
@@ -134,6 +136,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             animation: fadeUp 1s ease-out 0.4s both;
+            z-index: 1;
         }
 
         .btn:hover {
@@ -148,6 +151,7 @@
             color: var(--text-dim);
             animation: bounce 2s infinite;
             font-size: 1.5rem;
+            z-index: 1;
         }
 
         section {
@@ -199,20 +203,14 @@
             font-size: 1.1rem;
         }
 
-        .about-img-placeholder {
-            background: linear-gradient(135deg, #1a1818, #2a2222);
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #2a2525;
-            color: var(--text-dim);
-            font-size: 4rem;
+        .about-image-wrap {
             position: relative;
             overflow: hidden;
+            border: 1px solid #2a2525;
+            background: linear-gradient(135deg, #1a1818, #2a2222);
         }
 
-        .about-img-placeholder::after {
+        .about-image-wrap::after {
             content: '';
             position: absolute;
             top: -50%;
@@ -226,6 +224,15 @@
                 rgba(197,160,89,0.03) 10px,
                 rgba(197,160,89,0.03) 20px
             );
+            pointer-events: none;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            filter: sepia(0.4) contrast(1.1) brightness(0.9);
         }
 
         .classes-grid {
@@ -356,16 +363,21 @@
             z-index: 1;
         }
 
-        .map-bg {
+        .map-bg-img {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: #2a2525;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
             z-index: 0;
+            transition: opacity 0.3s, transform 0.5s;
+        }
+
+        .map-card:hover .map-bg-img {
+            opacity: 0.7;
+            transform: scale(1.05);
         }
 
         footer {
@@ -473,8 +485,8 @@
                     <p>Fight alongside friends as line infantry, protect your officer, or keep morale high as a musician. Lone wolves die fast in G&B.</p>
                 </div>
             </div>
-            <div class="about-img-placeholder">
-                <i class="fas fa-chess-rook"></i>
+            <div class="about-image-wrap">
+                <img src="https://placehold.co/800x600/1a1818/c5a059?text=Napoleonic+Battlefield" alt="Napoleonic Battlefield" class="about-img">
             </div>
         </div>
     </section>
@@ -562,32 +574,32 @@
         
         <div class="maps-grid">
             <div class="map-card reveal">
-                <div class="map-bg"><i class="fas fa-church"></i></div>
+                <img src="https://placehold.co/600x400/151414/c5a059?text=Leipzig" alt="Leipzig" class="map-bg-img">
                 <h3>Leipzig</h3>
                 <span>Urban warfare in the city streets. Expect close-quarters fighting and desperate last stands in the churchyard.</span>
             </div>
             <div class="map-card reveal">
-                <div class="map-bg"><i class="fas fa-water"></i></div>
+                <img src="https://placehold.co/600x400/151414/c5a059?text=San+Sebastian" alt="San Sebastián" class="map-bg-img">
                 <h3>San Sebastián</h3>
                 <span>A coastal fortress under siege. Wide open beaches and tight interiors require adaptive tactics.</span>
             </div>
             <div class="map-card reveal">
-                <div class="map-bg"><i class="fas fa-tree"></i></div>
+                <img src="https://placehold.co/600x400/151414/c5a059?text=Berezina" alt="Berezina" class="map-bg-img">
                 <h3>Berezina</h3>
                 <span>Freezing forests and narrow crossings. The cold is the least of your worries here.</span>
             </div>
             <div class="map-card reveal">
-                <div class="map-bg"><i class="fas fa-fort-awesome"></i></div>
+                <img src="https://placehold.co/600x400/151414/c5a059?text=Hougoumont" alt="Hougoumont" class="map-bg-img">
                 <h3>Hougoumont</h3>
                 <span>Defend the famed farmhouse from waves of undead. A classic siege experience.</span>
             </div>
             <div class="map-card reveal">
-                <div class="map-bg"><i class="fas fa-mountain"></i></div>
+                <img src="https://placehold.co/600x400/151414/c5a059?text=Tyrolean+Pass" alt="Tyrolean Pass" class="map-bg-img">
                 <h3>Tyrolean Pass</h3>
                 <span>Mountainous terrain with treacherous cliffs. Hold the pass or be overrun.</span>
             </div>
             <div class="map-card reveal">
-                <div class="map-bg"><i class="fas fa-campground"></i></div>
+                <img src="https://placehold.co/600x400/151414/c5a059?text=Quatre+Bras" alt="Quatre Bras" class="map-bg-img">
                 <h3>Quatre Bras</h3>
                 <span>A crossroads in Belgium. Open fields favor line formations, but flanking is constant.</span>
             </div>
@@ -634,4 +646,4 @@
         revealOnScroll();
     </script>
 </body>
-</html
+</html>
