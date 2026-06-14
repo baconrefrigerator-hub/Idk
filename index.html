@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Website</title>
+    <title>Guts & Blackpowder — Fan Site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-dark: #0f0e0e;
+            --bg-panel: #1a1818;
+            --accent-red: #8b2635;
+            --accent-gold: #c5a059;
+            --text: #e2d8d0;
+            --text-dim: #9e948a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,184 +24,620 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
             line-height: 1.6;
-            color: #333;
-            background: #f4f4f4;
+            overflow-x: hidden;
         }
 
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        h1, h2, h3, .brand {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         nav {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 14, 14, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #2a2525;
+            z-index: 1000;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+        .brand {
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+            font-weight: 700;
         }
 
         .nav-links {
-            list-style: none;
             display: flex;
             gap: 2rem;
+            list-style: none;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text-dim);
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-links a:hover {
-            color: #3498db;
+            color: var(--accent-gold);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent-gold);
         }
 
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 6rem 2rem;
+            padding: 2rem;
+            position: relative;
+            background: radial-gradient(circle at center, #1f1b1b 0%, #0f0e0e 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><rect fill="%23c5a059" width="100" height="100"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--accent-gold);
             margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            animation: fadeUp 1s ease-out;
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            animation: fadeUp 1s ease-out 0.2s both;
         }
 
         .btn {
             display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
+            padding: 0.9rem 2rem;
+            background: var(--accent-red);
+            color: white;
             text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            border: 1px solid #a03040;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeUp 1s ease-out 0.4s both;
         }
 
         .btn:hover {
+            background: #a03040;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(139, 38, 53, 0.4);
         }
 
-        .container {
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            color: var(--text-dim);
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+        }
+
+        section {
+            padding: 5rem 2rem;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 4rem 2rem;
         }
 
-        .features {
+        .section-title {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            color: var(--text-dim);
+        }
+
+        .about-text strong {
+            color: var(--text);
+        }
+
+        .feature-box {
+            background: var(--bg-panel);
+            border-left: 4px solid var(--accent-red);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .feature-box h3 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-img-placeholder {
+            background: linear-gradient(135deg, #1a1818, #2a2222);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #2a2525;
+            color: var(--text-dim);
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-img-placeholder::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(197,160,89,0.03) 10px,
+                rgba(197,160,89,0.03) 20px
+            );
+        }
+
+        .classes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
         }
 
-        .feature-card {
-            background: white;
+        .class-card {
+            background: var(--bg-panel);
+            border: 1px solid #2a2525;
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--accent-red);
+            transform: scaleX(0);
             transition: transform 0.3s;
         }
 
-        .feature-card:hover {
+        .class-card:hover {
             transform: translateY(-5px);
+            border-color: var(--accent-gold);
         }
 
-        .feature-card h3 {
-            color: #667eea;
+        .class-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .class-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
             margin-bottom: 1rem;
         }
 
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+        .class-card h3 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
 
-        @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
+        .class-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .gameplay-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mechanic {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.5rem;
+            background: var(--bg-panel);
+            padding: 1.5rem;
+            border: 1px solid #2a2525;
+            align-items: start;
+        }
+
+        .mechanic-icon {
+            font-size: 2rem;
+            color: var(--accent-red);
+            width: 50px;
+            text-align: center;
+        }
+
+        .mechanic h3 {
+            color: var(--accent-gold);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .mechanic p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .maps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .map-card {
+            position: relative;
+            height: 220px;
+            background: #151414;
+            border: 1px solid #2a2525;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .map-card:hover {
+            border-color: var(--accent-red);
+        }
+
+        .map-card h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            z-index: 2;
+        }
+
+        .map-card span {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .map-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(15,14,14,0.95) 0%, rgba(15,14,14,0.4) 100%);
+            z-index: 1;
+        }
+
+        .map-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: #2a2525;
+            z-index: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid #2a2525;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
             .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                width: 200px;
+                border-left: 1px solid #2a2525;
+                border-bottom: 1px solid #2a2525;
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mechanic {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .mechanic-icon {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">SimpleSite</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>
+
+    <nav>
+        <div class="brand"><i class="fas fa-cube"></i> Guts & Blackpowder</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#classes">Classes</a></li>
+            <li><a href="#gameplay">Gameplay</a></li>
+            <li><a href="#maps">Maps</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <header class="hero">
+        <h1>Guts & Blackpowder</h1>
+        <p>Hold the line. Load your musket. Pray the cap doesn't jam. A Roblox survival-horror experience set in the Napoleonic era.</p>
+        <a href="#about" class="btn">Enter the Trenches</a>
+        <div class="scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </header>
 
-    <section class="hero" id="home">
-        <h1>Welcome to My Website</h1>
-        <p>A clean, simple, and responsive website template.</p>
-        <a href="#features" class="btn">Get Started</a>
-    </section>
-
-    <section class="container" id="features">
-        <h2 style="text-align: center; margin-bottom: 1rem;">Features</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 2rem;">Everything you need in a simple package</p>
+    <section id="about">
+        <h2 class="section-title reveal">About the Game</h2>
+        <p class="section-sub reveal">Survival is not guaranteed. Cooperation is mandatory.</p>
         
-        <div class="features">
-            <div class="feature-card">
-                <h3>Responsive Design</h3>
-                <p>Looks great on any device, from mobile phones to desktop computers.</p>
+        <div class="about-grid reveal">
+            <div class="about-text">
+                <p><strong>Guts & Blackpowder (G&B)</strong> is a multiplayer survival-horror game on Roblox that drops players into the mud and blood of the early 19th century. You and your regiment must survive relentless waves of the infected using period-accurate weaponry, tactics, and sheer willpower.</p>
+                
+                <div class="feature-box">
+                    <h3><i class="fas fa-skull"></i> Permadeath</h3>
+                    <p>One bite is all it takes. If you fall, you join the horde. There are no respawns until the round ends—every shot counts, every decision matters.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <h3><i class="fas fa-users"></i> Regiment-Based Play</h3>
+                    <p>Fight alongside friends as line infantry, protect your officer, or keep morale high as a musician. Lone wolves die fast in G&B.</p>
+                </div>
             </div>
-            <div class="feature-card">
-                <h3>Fast Loading</h3>
-                <p>Lightweight code with no external dependencies means instant loading.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Easy to Edit</h3>
-                <p>Clean, organized HTML and CSS that anyone can modify.</p>
+            <div class="about-img-placeholder">
+                <i class="fas fa-chess-rook"></i>
             </div>
         </div>
     </section>
 
-    <section class="container" id="about" style="background: white; border-radius: 10px; margin-top: 2rem;">
-        <h2>About</h2>
-        <p style="margin-top: 1rem; color: #555;">
-            This is a simple static website built with plain HTML and CSS. 
-            You can use it as a starting point for your personal site, landing page, or portfolio. 
-            Just edit the text and colors to match your style!
-        </p>
+    <section id="classes">
+        <h2 class="section-title reveal">Classes & Roles</h2>
+        <p class="section-sub reveal">Every soldier has a place in the line.</p>
+        
+        <div class="classes-grid">
+            <div class="class-card reveal">
+                <div class="class-icon"><i class="fas fa-user"></i></div>
+                <h3>Line Infantry</h3>
+                <p>The backbone of any regiment. Armed with muskets and bayonets, they form firing lines and hold chokepoints against the undead tide.</p>
+            </div>
+            <div class="class-card reveal">
+                <div class="class-icon"><i class="fas fa-star"></i></div>
+                <h3>Officer</h3>
+                <p>Leads the charge and boosts morale. Equipped with a sabre and a spyglass, the officer commands troops and organizes defenses.</p>
+            </div>
+            <div class="class-card reveal">
+                <div class="class-icon"><i class="fas fa-music"></i></div>
+                <h3>Musician</h3>
+                <p>Drummers and fifers who provide buffs to nearby allies. Their music can be the difference between a rout and a disciplined retreat.</p>
+            </div>
+            <div class="class-card reveal">
+                <div class="class-icon"><i class="fas fa-medkit"></i></div>
+                <h3>Surgeon</h3>
+                <p>The only hope for the wounded. Surgeons can revive incapacitated players—if they can reach them before the horde does.</p>
+            </div>
+            <div class="class-card reveal">
+                <div class="class-icon"><i class="fas fa-fire"></i></div>
+                <h3>Sapper</h3>
+                <p>Engineers who construct barricades, spikes, and cover. A good sapper turns a hopeless position into a fortress.</p>
+            </div>
+            <div class="class-card reveal">
+                <div class="class-icon"><i class="fas fa-horse"></i></div>
+                <h3>Cavalry</h3>
+                <p>Fast-moving shock troops. They can break through zombie hordes with sabre charges, but are vulnerable when dismounted.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gameplay">
+        <h2 class="section-title reveal">Core Mechanics</h2>
+        <p class="section-sub reveal">Muskets, mud, and monstrosities.</p>
+        
+        <div class="gameplay-container">
+            <div class="mechanic reveal">
+                <div class="mechanic-icon"><i class="fas fa-crosshairs"></i></div>
+                <div>
+                    <h3>Blackpowder Combat</h3>
+                    <p>Firearms are slow, inaccurate, and deadly. Players must stand still to fire effectively, coordinate volleys, and switch to bayonets when the enemy closes the distance. Reloading under pressure is a skill in itself.</p>
+                </div>
+            </div>
+            
+            <div class="mechanic reveal">
+                <div class="mechanic-icon"><i class="fas fa-shield-alt"></i></div>
+                <div>
+                    <h3>Barricades & Fortifications</h3>
+                    <p>Sappers can place wooden barricades and spike traps. These delay the infected but can be broken—forcing players to adapt and fallback to secondary positions.</p>
+                </div>
+            </div>
+            
+            <div class="mechanic reveal">
+                <div class="mechanic-icon"><i class="fas fa-biohazard"></i></div>
+                <div>
+                    <h3>Infection System</h3>
+                    <p>A single scratch or bite from an infected player or NPC can doom a soldier. Infected players turn against their former comrades, creating paranoia and forcing teams to watch each other closely.</p>
+                </div>
+            </div>
+            
+            <div class="mechanic reveal">
+                <div class="mechanic-icon"><i class="fas fa-flag"></i></div>
+                <div>
+                    <h3>Morale & Voicelines</h3>
+                    <p>Staying near officers and musicians maintains morale, reducing sway and reload penalties. The game features immersive commands, cheers, and screams that add to the chaos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="maps">
+        <h2 class="section-title reveal">Notable Maps</h2>
+        <p class="section-sub reveal">Battlefields soaked in history... and blood.</p>
+        
+        <div class="maps-grid">
+            <div class="map-card reveal">
+                <div class="map-bg"><i class="fas fa-church"></i></div>
+                <h3>Leipzig</h3>
+                <span>Urban warfare in the city streets. Expect close-quarters fighting and desperate last stands in the churchyard.</span>
+            </div>
+            <div class="map-card reveal">
+                <div class="map-bg"><i class="fas fa-water"></i></div>
+                <h3>San Sebastián</h3>
+                <span>A coastal fortress under siege. Wide open beaches and tight interiors require adaptive tactics.</span>
+            </div>
+            <div class="map-card reveal">
+                <div class="map-bg"><i class="fas fa-tree"></i></div>
+                <h3>Berezina</h3>
+                <span>Freezing forests and narrow crossings. The cold is the least of your worries here.</span>
+            </div>
+            <div class="map-card reveal">
+                <div class="map-bg"><i class="fas fa-fort-awesome"></i></div>
+                <h3>Hougoumont</h3>
+                <span>Defend the famed farmhouse from waves of undead. A classic siege experience.</span>
+            </div>
+            <div class="map-card reveal">
+                <div class="map-bg"><i class="fas fa-mountain"></i></div>
+                <h3>Tyrolean Pass</h3>
+                <span>Mountainous terrain with treacherous cliffs. Hold the pass or be overrun.</span>
+            </div>
+            <div class="map-card reveal">
+                <div class="map-bg"><i class="fas fa-campground"></i></div>
+                <h3>Quatre Bras</h3>
+                <span>A crossroads in Belgium. Open fields favor line formations, but flanking is constant.</span>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 SimpleSite. Made with care.</p>
+        <p><strong>Guts & Blackpowder</strong> is a Roblox experience created by the G&B development team.</p>
+        <p style="margin-top:0.5rem;">This is an unofficial fan site. Built with <i class="fas fa-heart" style="color:var(--accent-red)"></i> for the community.</p>
     </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.remove('active');
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+            
+            revealElements.forEach(reveal => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    </script>
 </body>
 </html
